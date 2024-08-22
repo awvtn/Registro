@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="date"], input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.radio-group label {
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo específico para el campo de categoría */
+select#categoria {
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: 500;
+    appearance: none; /* Remueve la flecha predeterminada */
+    position: relative;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+select#categoria:focus {
+    background-color: #ffffff;
+}
+
+/* Agrega una pequeña flecha personalizada */
+select#categoria::after {
+    content: "▼";
+    position: absolute;
+    right: 15px;
+    pointer-events: none;
+    color: #007bff;
+}

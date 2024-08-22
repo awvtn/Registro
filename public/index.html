@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-conainer">
+        <h2>Formulario de Registro</h2>
+        <form id="registroForm">
+            <label for="curp">CURP:</label>
+            <input type="text" id="curp" name="curp" required>
+            <button type="button" onclick="consultarCurp()">Consultar CURP</button><br><br>
+
+            <label for="genero">Género:</label>
+            <div class="radio-group">
+                <input type="radio" id="hombre" name="genero" value="Hombre" required>
+                <label for="hombre">Hombre</label>
+                <input type="radio" name="genero" id="mujer" value="Mujer" required>
+                <label for="radio">Mujer</label>
+            </div><br>
+
+            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" name="fechaNacimiento" required><br><br>
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required><br><br>
+
+            <label for="apellidoPaterno">Apellido Paterno:</label>
+            <input type="text" id="apellidoPaterno" name="apellidoPaterno" required><br><br>
+
+            <label for="apellidoMaterno">Apellido Materno:</label>
+            <input type="text" name="apellidoMaterno" id="apellidoMaterno" required><br><br>
+
+            <label for="edad">Edad:</label>
+            <input type="number" name="edad" id="edad" required><br><br>
+
+            <label for="distancia">Distancia:</label>
+            <div class="radio-group">
+                <input type="radio" name="distancia" id="7km" value="7km" required>
+                <label for="7km">7Km</label>
+                <input type="radio" name="distancia" id="15km" value="15km" required>
+                <label for="15km">15Km</label>
+            </div><br>
+
+            <label for="telefono">Número de Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" required>
+            <br><br>
+
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria" required>
+                <option value="libre">Libre</option>
+                <option value="master">Master</option>
+            </select><br><br>
+
+            <button type="submit">Listo</button>
+        </form>
+    </div>
+    
+    <script type="module" src="script.js"></script>
+</body>
+</html>
