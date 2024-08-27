@@ -1,4 +1,7 @@
-const { response } = require("express");
+//const { response } = require("express");
+// import express from 'express';
+
+// const response = express();
 
 let competidorCounter = 1;
 
@@ -25,24 +28,18 @@ document.getElementById("registroForm").addEventListener("submit", async functio
     competidorCounter++;
     
     try {
-        const response = await fetch('/guardar', {
+        fetch('/guardar', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify(data),
         })
         .then(response => response.json())
-        .then(result => {
-            console.log('Exito', result);
+        .then(data => {
+            console.log('Datos guardados:', data);
+            window.location.href = '/race-info.html';
         })
-        .catch(error => {
-            console.error('Error al guardar los datos: ', error);
-        })
-
-        const result = await response.json();
-
-        if (result.mensaje === 'Datos guardados correctamente') {
-            location.href = "race-info.html";
-        }
     } catch (error) {
         console.error('Error al guardar los datos:', error);
     }
