@@ -14,7 +14,7 @@ const PORT = 3000;
 
 // Configura la conexión a PostgreSQL
 const pool = new Pool({
-    connectionString: 'postgresql://competidores_user:KugswiSVuTxx2JENebXmomIY1KPB3y31@dpg-cr77vhjv2p9s73e9k380-a/competidores'
+    connectionString: process.env.DATABASE_URL
 });
 
 app.use(bodyParser.json());
@@ -35,7 +35,7 @@ app.post('/guardar', async (req, res) => {
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
             [numeroCompetidor, nombre, curp, genero, fechaNacimiento, apellidoPaterno, apellidoMaterno, edad, distancia, telefono, categoria]
         );
-
+        console.log('Conexión exitosa:', res.rows);
         res.json({ mensaje: "Datos guardados correctamente", id: result.rows[0].id });
     } catch (err) {
         console.error('Error al guardar los datos en la base de datos:', err);
