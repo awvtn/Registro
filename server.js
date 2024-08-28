@@ -1,10 +1,24 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const fs = require('fs');
+import express from 'express';
+import bodyParser from 'body-parser';
+import { Pool } from 'pg';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Configurar __dirname en un módulo ES
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;
+
+// Configura la conexión a PostgreSQL
+const pool = new Pool({
+    user: 'Diana_Herrera',
+    host: 'dpg-cr77vhjv2p9s73e9k380-a',
+    database: 'registro-carrera',
+    password: 'KugswiSVuTxx2JENebXmomIY1KPB3y31',
+    port: 5432,
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,30 +27,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Ruta para manejar el formulario
 app.post('/guardar', async (req, res) => {
-    const { curp, genero, fechaNacimiento, nombre, apellidoPaterno, apellidoMaterno, edad, distancia, telefono, categoria, numeroCompetidor } = req.body;
+    const { numeroCompetidor, nombre, curp, genero, fechaNacimiento, apellidoPaterno, apellidoMaterno, edad, distancia, telefono, categoria } = req.body;
 
-    const filePath = path.join(__dirname, 'Competidores.txt');
-    const header = `Competidor\tCURP\t\tGénero\t\tFecha Nac.\tNombre\tApellido Paterno\tApellido Materno\tEdad\tDistancia\tTeléfono\tCategoría\n`;
-    const competidorData = `${numeroCompetidor}\t${curp}\t${genero}\t\t${fechaNacimiento}\t${nombre}\t${apellidoPaterno}\t${apellidoMaterno}\t${edad}\t${distancia}\t${telefono}\t${categoria}\n`;
+    try {
+        // Insertar los datos en la base de datos
+        const result = await pool.query(
+            `INSERT INTO competidores (
+                numero_competidor, nombre, curp, genero, fecha_nacimiento, 
+                apellido_paterno, apellido_materno, edad, distancia, telefono, categoria
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
+            [numeroCompetidor, nombre, curp, genero, fechaNacimiento, apellidoPaterno, apellidoMaterno, edad, distancia, telefono, categoria]
+        );
 
-    if (!fs.existsSync(filePath)) {
-        // Si no existe, primero agregamos la cabecera y luego los datos
-        fs.writeFile(filePath, header + competidorData, (err) => {
-            if (err) {
-                console.error('Error al crear el archivo de texto:', err);
-                return res.status(500).json({ mensaje: "Error al guardar los datos" });
-            }
-            res.json({ mensaje: "Datos guardados correctamente" });
-        });
-    } else {
-        // Si ya existe, simplemente agregamos los datos (sin cabecera)
-        fs.appendFile(filePath, competidorData, (err) => {
-            if (err) {
-                console.error('Error al agregar datos al archivo de texto:', err);
-                return res.status(500).json({ mensaje: "Error al guardar los datos" });
-            }
-            res.json({ mensaje: "Datos guardados correctamente" });
-        });
+        res.json({ mensaje: "Datos guardados correctamente", id: result.rows[0].id });
+    } catch (err) {
+        console.error('Error al guardar los datos en la base de datos:', err);
+        res.status(500).json({ mensaje: "Error al guardar los datos" });
     }
 });
 

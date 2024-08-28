@@ -1,8 +1,3 @@
-//const { response } = require("express");
-// import express from 'express';
-
-// const response = express();
-
 let competidorCounter = 1;
 
 document.getElementById("registroForm").addEventListener("submit", async function(event) {
