@@ -1,8 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { Pool } from 'pg';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
+const { Pool } = require('pg');
 
 // Configurar __dirname en un módulo ES
 const __filename = fileURLToPath(import.meta.url);
