@@ -27,8 +27,6 @@ app.post('/guardar', async (req, res) => {
     const { numeroCompetidor, nombre, curp, genero, fechaNacimiento, apellidoPaterno, apellidoMaterno, edad, distancia, telefono, categoria } = req.body;
 
     try {
-        const result = await pool.query('SELECT COUNT(*) FROM competidores');
-        const numCompetidor = parseInt(result.rows[0].count, 10) + 1;
         // Insertar los datos en la base de datos
         const result = await pool.query(
             `INSERT INTO competidores (
