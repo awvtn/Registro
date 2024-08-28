@@ -27,13 +27,15 @@ app.post('/guardar', async (req, res) => {
     const { numeroCompetidor, nombre, curp, genero, fechaNacimiento, apellidoPaterno, apellidoMaterno, edad, distancia, telefono, categoria } = req.body;
 
     try {
+        const result = await pool.query('SELECT COUNT(*) FROM competidores');
+        const numCompetidor = parseInt(result.rows[0].count, 10) + 1;
         // Insertar los datos en la base de datos
         const result = await pool.query(
             `INSERT INTO competidores (
                 numero_competidor, nombre, curp, genero, fecha_nacimiento, 
                 apellido_paterno, apellido_materno, edad, distancia, telefono, categoria
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
-            [numeroCompetidor, nombre, curp, genero, fechaNacimiento, apellidoPaterno, apellidoMaterno, edad, distancia, telefono, categoria]
+            [numCompetidor, nombre, curp, genero, fechaNacimiento, apellidoPaterno, apellidoMaterno, edad, distancia, telefono, categoria]
         );
         console.log('Conexión exitosa:', res.rows);
         res.json({ mensaje: "Datos guardados correctamente", id: result.rows[0].id });
