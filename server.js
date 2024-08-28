@@ -3,11 +3,11 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const { Pool } = require('pg');
-
 // Configurar __dirname en un módulo ES
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const { Pool } = await import('pg').then(pg => pg.default);
 
 const app = express();
 const PORT = 3000;
