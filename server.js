@@ -14,9 +14,9 @@ const PORT = 3000;
 
 // Configura la conexión a PostgreSQL
 const pool = new Pool({
-    user: 'Diana_Herrera',
+    user: 'competidores_user',
     host: 'dpg-cr77vhjv2p9s73e9k380-a',
-    database: 'registro-carrera',
+    database: 'competidores',
     password: 'KugswiSVuTxx2JENebXmomIY1KPB3y31',
     port: 5432,
 });
