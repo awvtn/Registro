@@ -33,7 +33,7 @@ app.post('/guardar', async (req, res) => {
                 numero_competidor, nombre, curp, genero, fecha_nacimiento, 
                 apellido_paterno, apellido_materno, edad, distancia, telefono, categoria
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
-            [numCompetidor, nombre, curp, genero, fechaNacimiento, apellidoPaterno, apellidoMaterno, edad, distancia, telefono, categoria]
+            [numeroCompetidor, nombre, curp, genero, fechaNacimiento, apellidoPaterno, apellidoMaterno, edad, distancia, telefono, categoria]
         );
         console.log('Conexión exitosa:', res.rows);
         res.json({ mensaje: "Datos guardados correctamente", id: result.rows[0].id });
